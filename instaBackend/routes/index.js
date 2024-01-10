@@ -7,7 +7,7 @@ const passport = require('passport');
 const localStrategy = require('passport-local');
 const upload = require('./multer');
 const { feedController } = require('./controller/feed.controller');
-const { profileController } = require('./controller/profile.controller');
+const { profileController, userFindController } = require('./controller/profile.controller');
 const { searchController } = require('./controller/search.controller');
 const { userEditController } = require('./controller/userEdit.Controller');
 const { userRegisterController } = require('./controller/userRegister.controller');
@@ -41,7 +41,7 @@ router.get('/login', function (req, res) {
 
 router.get('/feed', isLoggedIn, feedController );
 
-router.get('/profile', isLoggedIn, profileController);
+router.get('/profile', userFindController);
 
 router.get('/search', isLoggedIn, searchController);
 
@@ -249,7 +249,7 @@ router.post('/comment/:postId', isLoggedIn, async function (req, res) {
 
 router.get('/deleteComment/:postId/:commentId', isLoggedIn , deleteCommentController );
 
-router.post('/loginInFrontEnd', login_Controller );
+router.post('/loginInFrontEnd', cors(), login_Controller );
 
 
 function isLoggedIn(req, res, next) {

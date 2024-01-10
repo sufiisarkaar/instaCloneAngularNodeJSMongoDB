@@ -9,6 +9,14 @@ profileController = async (req, res)=>{
       user: user,
       profileImage: user.profileImage
     });
+  };
+
+
+  userFindController = async (req,res)=>{
+    const user = await userModel.find().populate('posts');
+    res.send({
+      user 
+    });
   }
 
-  module.exports = { profileController };
+  module.exports = {  userFindController };

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/services/login.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-index',
@@ -11,7 +11,7 @@ import { LoginService } from 'src/app/services/login.service';
 export class IndexComponent {
   registerUser: FormGroup;
 
-constructor(private _formBuilder: FormBuilder, private _loginService: LoginService, private _router:Router){
+constructor(private _formBuilder: FormBuilder, private _userService: UserService, private _router:Router){
   this.registerUser = this._formBuilder.group({
     name : this._formBuilder.control('',[Validators.required]),
     username : this._formBuilder.control('',[Validators.required]),
@@ -24,7 +24,7 @@ userRegister(){
 if(this.registerUser.valid){
   console.log(this.registerUser.value);
   const registerUserValue = this.registerUser.value;
-  this._loginService._userRegister(registerUserValue).subscribe((res)=>{
+  this._userService._userRegister(registerUserValue).subscribe((res)=>{
     console.log(res,"register");
     this._router.navigateByUrl('/login');
   })
